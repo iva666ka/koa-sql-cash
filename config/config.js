@@ -1,7 +1,7 @@
 const config = {
   port: 3000,
   sqlConnectionLimit: 10,
-  sqlHost: '127.0.0.1',
+  sqlHost: 'localhost',
   sqlUser: 'admin',
   sqlPassword: 'admin',
   sqlDatabase: 'library',
