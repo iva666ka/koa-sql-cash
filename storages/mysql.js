@@ -9,11 +9,12 @@ const {
 } = require('../config/config.js').config;
 
 const pool = mysql.createPool({
-  sqlConnectionLimit,
-  sqlHost,
-  sqlUser,
-  sqlPassword,
-  sqlDatabase,
+  connectionLimit: sqlConnectionLimit,
+  host: sqlHost,
+  user: sqlUser,
+  password: sqlPassword,
+  database: sqlDatabase,
+  // insecureAuth: true,
 });
 
 pool.query = util.promisify(pool.query);
