@@ -25,7 +25,6 @@ describe('create book', () => {
       title: 'New book',
       author: 'William Shakespeare',
     });
-    console.log(result);
     expect(result).toBeDefined();
   });
   test('should create book if all data correct', async () => {
@@ -36,7 +35,6 @@ describe('create book', () => {
       description: 'Super cool new book',
       image: '/images/130.jpg',
     });
-    console.log(result);
     expect(result).toBeDefined();
   });
 });
@@ -50,7 +48,6 @@ describe('update book', () => {
       description: 'Super cool new book',
       image: '/images/130.jpg',
     });
-    console.log(result);
     expect(result).toBeDefined();
   });
   test('should return error if run without params', async () => {
@@ -87,7 +84,6 @@ describe('read books', () => {
   });
   test('should return last 20 books if run without params', async () => {
     const result = await readBook();
-    console.log(result);
     expect(result).toBeDefined();
   });
   test('should return result if searchBy and search provided', async () => {
