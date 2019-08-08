@@ -115,4 +115,11 @@ describe('read books', () => {
     });
     expect(resuit).toBeDefined();
   });
+  test('search with offset', async () => {
+    const resuit = await readBook({
+      limit: 20,
+      offset: 5,
+    });
+    expect(resuit).toBeDefined();
+  });
 });
