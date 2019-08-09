@@ -5,9 +5,9 @@ const { allRouters } = require('./routes');
 const app = new Koa();
 
 // logger
-app.use((ctx, next) => {
+app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url}`);
-  next();
+  await next();
 });
 
 // x-response-time
