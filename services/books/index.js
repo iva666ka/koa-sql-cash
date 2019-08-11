@@ -44,8 +44,15 @@ async function update(id, booksData) {
   return sqlConnectionPool.query('UPDATE books set ? WHERE id = ?', [validatedBook, validatedId]);
 }
 
+async function del(id) {
+  const validatedId = await idSchema.validate(id);
+
+  return sqlConnectionPool.query('DELETE FROM books WHERE id = ?', [validatedId]);
+}
+
 module.exports = {
   create,
   read,
   update,
+  del,
 };

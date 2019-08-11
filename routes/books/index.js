@@ -1,25 +1,37 @@
 const Router = require('koa-router');
+const bodyParser = require('koa-bodyparser');
+const {
+  create: createBook,
+  read: readBook,
+  update: updateBook,
+  del: deleteBook,
+} = require('../../services/books');
 
 const bookRoutes = new Router();
 
-bookRoutes.get('/', (ctx) => {
-  ctx.body = 'get books methods';
+bookRoutes.get('/', async (ctx) => {
+  const result = await readBook(ctx.query);
+  ctx.body = result;
 });
 
-bookRoutes.post('/', (ctx) => {
-  ctx.body = 'post books method';
+bookRoutes.get('/:id', async (ctx) => {
+  const result = await readBook({ searchBy: 'id', search: ctx.params.id });
+  ctx.body = result;
 });
 
-bookRoutes.get('/:id', (ctx) => {
-  ctx.body = `get one book by id ${ctx.params.id} method`;
+bookRoutes.post('/', bodyParser(), async (ctx) => {
+  const result = await createBook(ctx.request.body);
+  ctx.body = result;
 });
 
-bookRoutes.post('/:id', (ctx) => {
-  ctx.body = `update one book by id ${ctx.params.id} method`;
+bookRoutes.post('/:id', bodyParser(), async (ctx) => {
+  const result = await updateBook(ctx.params.id, ctx.request.body);
+  ctx.body = result;
 });
 
-bookRoutes.del('/:id', (ctx) => {
-  ctx.body = `delete one book by id ${ctx.params.id} method`;
+bookRoutes.del('/:id', async (ctx) => {
+  const result = await deleteBook(ctx.params.id);
+  ctx.body = result;
 });
 
 module.exports = {
