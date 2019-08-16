@@ -7,19 +7,19 @@ const createBookSchema = Joi.object().keys({
   title: Joi.string().min(1).max(256).trim()
     .required(),
   date: Joi.date(),
-  author: Joi.string().min(1).max(64).trim()
+  author: Joi.string().min(1).max(256).trim()
     .required(),
-  description: Joi.string().min(1).max(1024).trim(),
-  image: Joi.string().min(1).max(256).trim(),
+  description: Joi.string().max(10000).trim().allow(''),
+  image: Joi.string().max(256).trim().allow(''),
 }).required()
   .label('booksData');
 
 const updateBookSchema = Joi.object().keys({
   title: Joi.string().min(1).max(256).trim(),
   date: Joi.date(),
-  author: Joi.string().min(1).max(64).trim(),
-  description: Joi.string().min(1).max(1024).trim(),
-  image: Joi.string().min(1).max(256).trim(),
+  author: Joi.string().min(1).max(256).trim(),
+  description: Joi.string().max(10000).trim().allow(''),
+  image: Joi.string().max(256).trim().allow(''),
 }).required().or('title', 'date', 'author', 'description', 'image')
   .label('booksData');
 
