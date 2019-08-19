@@ -35,7 +35,7 @@ jsonParser.on('end', async () => {
     const randomBooksData = {
       title: String(randomWords({ min: 1, max: 10, join: ' ' })).slice(0, 255),
       // date between 1900 and current
-      date: new Date(-2208988800000 + Math.random() * (new Date().getMilliseconds() + 2208988800000)),
+      date: new Date(-2208988800000 + Math.random() * (new Date().getTime() + 2208988800000)),
       author: String(randomWords({ min: 2, max: 3, join: ' ' })).slice(0, 255),
       description: String(randomWords({ min: 3, max: 100, join: ' ' })).slice(0, 10000),
       image: String(`https://images.site.domain/image${i}`).slice(0, 255),
