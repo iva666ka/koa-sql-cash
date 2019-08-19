@@ -4,22 +4,22 @@ const idSchema = Joi.number().integer().positive().required()
   .label('id');
 
 const createBookSchema = Joi.object().keys({
-  title: Joi.string().min(1).max(256).trim()
+  title: Joi.string().min(1).max(255).trim()
     .required(),
   date: Joi.date(),
-  author: Joi.string().min(1).max(256).trim()
+  author: Joi.string().min(1).max(255).trim()
     .required(),
   description: Joi.string().max(10000).trim().allow(''),
-  image: Joi.string().max(256).trim().allow(''),
+  image: Joi.string().max(255).trim().allow(''),
 }).required()
   .label('booksData');
 
 const updateBookSchema = Joi.object().keys({
-  title: Joi.string().min(1).max(256).trim(),
+  title: Joi.string().min(1).max(255).trim(),
   date: Joi.date(),
-  author: Joi.string().min(1).max(256).trim(),
+  author: Joi.string().min(1).max(255).trim(),
   description: Joi.string().max(10000).trim().allow(''),
-  image: Joi.string().max(256).trim().allow(''),
+  image: Joi.string().max(255).trim().allow(''),
 }).required().or('title', 'date', 'author', 'description', 'image')
   .label('booksData');
 
