@@ -48,4 +48,7 @@ jsonParser.on('end', async () => {
     }
   }
   console.log('data saved in db');
+  sqlConnectionPool.end(() => {
+    console.log('end sql connection');
+  });
 });

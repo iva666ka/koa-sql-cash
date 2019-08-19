@@ -5,6 +5,7 @@ const config = {
   sqlUser: 'admin',
   sqlPassword: 'admin',
   sqlDatabase: 'library',
+  elasticNode: 'http://localhost:9200',
 };
 
 // if there are variable in env, use env variable instead predefined
