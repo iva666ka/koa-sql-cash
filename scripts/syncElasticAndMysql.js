@@ -6,6 +6,8 @@ const {
   sqlUser,
   sqlPassword,
   sqlDatabase,
+  elasticIndex,
+  elasticType,
 } = require('../config/config.js').config;
 
 const connection = mysql.createConnection({
@@ -27,8 +29,8 @@ query
     connection.pause();
     const result = await elasticClient.index({
       id: row.id,
-      index: 'books',
-      type: '_doc',
+      index: elasticIndex,
+      type: elasticType,
       body: row,
     });
     if ((row.id % 1000) === 0) console.log(row.id, result);

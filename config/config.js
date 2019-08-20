@@ -6,6 +6,8 @@ const config = {
   sqlPassword: 'admin',
   sqlDatabase: 'library',
   elasticNode: 'http://localhost:9200',
+  elasticIndex: 'books',
+  elasticType: '_doc',
 };
 
 // if there are variable in env, use env variable instead predefined
