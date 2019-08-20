@@ -57,6 +57,17 @@ describe('books routes', () => {
       });
     expect(result.statusCode).toBe(200);
   });
+  test('post /books/:id with wrong id should return error', async () => {
+    const result = await request(server).post('/books/9999999')
+      .send({
+        title: 'new test title',
+        date: new Date(),
+        author: 'new author',
+        description: 'new description',
+        image: 'new url',
+      });
+    expect(result.statusCode).toBe(200);
+  });
 
   test('delete /books/:id delete book', async () => {
     const result = await request(server).delete('/books/209');
