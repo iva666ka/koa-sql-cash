@@ -74,7 +74,14 @@ async function update(id, booksData) {
 async function del(id) {
   const validatedId = await idSchema.validate(id);
 
-  return sqlConnectionPool.query('DELETE FROM books WHERE id = ?', [validatedId]);
+  const { affectedRows } = await sqlConnectionPool.query('DELETE FROM books WHERE id = ?', [validatedId]);
+  if (affectedRows === 0) throw new Error(`id ${validatedId} does not found`);
+  await elasticClient.delete({
+    index: elasticIndex,
+    type: elasticType,
+    id: validatedId,
+  });
+  return { result: `book with id: ${validatedId} was deleted` };
 }
 
 module.exports = {

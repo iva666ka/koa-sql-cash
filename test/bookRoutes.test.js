@@ -70,7 +70,7 @@ describe('books routes', () => {
   });
 
   test('delete /books/:id delete book', async () => {
-    const result = await request(server).delete('/books/209');
+    const result = await request(server).delete('/books/100114');
     expect(result.statusCode).toBe(200);
   });
 });
