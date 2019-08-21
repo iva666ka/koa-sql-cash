@@ -39,16 +39,44 @@ async function read(searchOptions = {}) {
     offset,
   } = validatedSearchOptions;
 
-  if (!search || !searchBy) {
-    return sqlConnectionPool
-      .query(`SELECT * FROM books ORDER BY ?? ${sort} LIMIT ? OFFSET ?`, [sortBy, limit, offset]);
+  const queryDSL = {
+    sort:
+      [
+        {
+          [sortBy]: sort,
+        },
+      ],
+  };
+
+  if (search && searchBy) {
+    queryDSL.query = {
+      match: {
+        [searchBy]: search,
+      },
+    };
   }
 
-  return sqlConnectionPool
-    .query(
-      `SELECT * FROM books WHERE ?? = ? ORDER BY ?? ${sort} LIMIT ? OFFSET ?`,
-      [searchBy, search, sortBy, limit, offset],
-    );
+  const { body: { hits } } = await elasticClient.search({
+    index: elasticIndex,
+    type: elasticType,
+    size: limit,
+    from: offset,
+    body: queryDSL,
+  });
+
+  const result = {};
+  result.meta = {
+    total: hits.total,
+    search,
+    searchBy,
+    sort,
+    sortBy,
+    limit,
+    offset,
+  };
+  // eslint-disable-next-line no-underscore-dangle
+  result.resilts = hits.hits.map(foundedBook => foundedBook._source);
+  return result;
 }
 
 async function update(id, booksData) {

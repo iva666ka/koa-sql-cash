@@ -1,3 +1,6 @@
+// the best way to sync mysql and elastic is using Logstash Jdbc input plugin
+// https://www.elastic.co/guide/en/logstash/current/plugins-inputs-jdbc.html. Do not use it in production.
+// It was written just for sync data during tests.
 const mysql = require('mysql');
 const { elasticClient } = require('../storages/elastic.js');
 

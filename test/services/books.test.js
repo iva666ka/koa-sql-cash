@@ -105,11 +105,11 @@ describe('read books', () => {
   });
   test('should return result if all params defined', async () => {
     const resuit = await readBook({
-      searchBy: 'author',
-      search: 'Some Author',
+      searchBy: 'description',
+      search: 'attack pupil',
       sort: 'ASC',
       sortBy: 'date',
-      limit: 2,
+      limit: 100,
       offset: 0,
     });
     expect(resuit).toBeDefined();
