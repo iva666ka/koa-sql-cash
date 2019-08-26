@@ -26,8 +26,8 @@ const updateBookSchema = Joi.object().keys({
 const searchOptionsSchema = Joi.object().keys({
   search: Joi.string().min(0).trim(),
   searchBy: Joi.string().lowercase().valid('title', 'date', 'author', 'description', 'image', 'id'),
-  sort: Joi.string().uppercase().valid('ASC', 'DESC').default('DESC'),
-  sortBy: Joi.string().lowercase().valid('title', 'date', 'author', 'description', 'image', 'id').default('id'),
+  sort: Joi.string().uppercase().valid('ASC', 'DESC'), // todo possible rename to sortDirection?
+  sortBy: Joi.string().lowercase().valid('title', 'date', 'author', 'description', 'image', 'id'),
   limit: Joi.number().integer().min(1).max(100)
     .default(20),
   offset: Joi.number().integer().min(0).default(0),

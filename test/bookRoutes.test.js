@@ -9,20 +9,20 @@ describe('books routes', () => {
   test('get /books without query should return last 20 books', async () => {
     const result = await request(server).get('/books');
     expect(result.statusCode).toBe(200);
-    expect(result.body.length).toBe(20);
+    expect(result.body.results.length).toBe(20);
   });
   test('get /books with all params query should return matched books', async () => {
     const result = await request(server).get('/books')
       .query({
         search: 'Some Author',
         searchBy: 'author',
-        sort: 'asc',
-        sortBy: 'title',
-        limit: 2,
-        offset: 2,
+        // sort: 'desc',
+        // sortBy: 'title',
+        limit: 20,
+        offset: 0,
       });
     expect(result.statusCode).toBe(200);
-    expect(result.body.length).toBe(2);
+    expect(result.body.results.length).toBe(2);
   });
 
   test('get /books/:id with exist id should return book with this id', async () => {

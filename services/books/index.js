@@ -38,15 +38,36 @@ async function read(searchOptions = {}) {
     limit,
     offset,
   } = validatedSearchOptions;
+  const queryDSL = {};
 
-  const queryDSL = {
-    sort:
-      [
-        {
-          [sortBy]: sort,
-        },
-      ],
-  };
+  if (sortBy) {
+    switch (sortBy) {
+      case 'title':
+      case 'author':
+      case 'description':
+      case 'image':
+        queryDSL.sort = [
+          {
+            [`${sortBy}.raw`]: sort || 'ASC',
+          },
+        ];
+        break;
+      case 'id':
+      case 'date':
+        queryDSL.sort = [
+          {
+            [sortBy]: sort || 'ASC',
+          },
+        ];
+        break;
+      default:
+        queryDSL.sort = [
+          {
+            id: 'DESC',
+          },
+        ];
+    }
+  }
 
   if (search && searchBy) {
     queryDSL.query = {
@@ -75,7 +96,7 @@ async function read(searchOptions = {}) {
     offset,
   };
   // eslint-disable-next-line no-underscore-dangle
-  result.resilts = hits.hits.map(foundedBook => foundedBook._source);
+  result.results = hits.hits.map(foundedBook => foundedBook._source);
   return result;
 }
 
