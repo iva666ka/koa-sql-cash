@@ -51,14 +51,13 @@ describe('update book', () => {
     expect(result).toBeDefined();
   });
   test('should return error id does not found', async () => {
-    const result = await updateBook(9999999, {
+    await expect(updateBook(9999999, {
       title: 'New book',
       date: Date(),
       author: 'Some Author',
       description: 'Super cool new book',
       image: '/images/130.jpg',
-    });
-    expect(result).toBeDefined();
+    })).rejects.toThrow('id 9999999 does not found');
   });
   test('should return error if run without params', async () => {
     await expect(updateBook()).rejects.toThrow('"id" is required');
