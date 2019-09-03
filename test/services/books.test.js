@@ -140,7 +140,13 @@ describe('read books', () => {
 
 describe('read book by id', () => {
   test('should return result if id provided and exist in SQL', async () => {
-    const resuit = await readBookById(99);
-    expect(resuit).toBeDefined();
+    const result = await readBookById(99);
+    expect(result).toBeDefined();
+  });
+  test('should return error if id does not exist in sql', async () => {
+    await expect(readBookById(99999999999)).rejects.toThrow('id 99999999999 does not found');
+  });
+  test('should return error if id does not provided', async () => {
+    await expect(readBookById()).rejects.toThrow('"id" is required');
   });
 });
