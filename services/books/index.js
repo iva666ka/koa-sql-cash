@@ -46,10 +46,10 @@ async function readById(id) {
   if (sqlResult === undefined) throw new Error(`id ${validatedId} does not found`);
 
   redisClient.hmset(`book:${validatedId}`, sqlResult)
-    .then() // do nothing when promise resolves
+    .then() // do nothing when promise resolves. We have already sent the result to the client
     .catch((e) => { console.log('Can\'t write book into redis.', e); });
 
-  return sqlResult;
+  return sqlResult; // sent result before redisClient.hmset.resolve
 }
 
 async function read(searchOptions = {}) {
@@ -168,7 +168,7 @@ async function del(id) {
       type: elasticType,
       id: validatedId,
     }),
-    redisClient.del(`user:${validatedId}`),
+    redisClient.del(`book:${validatedId}`),
   );
 
   await Promise.all(promiseArray);
