@@ -8,6 +8,8 @@ const config = {
   elasticNode: 'http://localhost:9200',
   elasticIndex: 'books',
   elasticType: '_doc',
+  redisHost: '127.0.0.1',
+  redisURL: 'redis://127.0.0.1:6379',
 };
 
 // if there are variable in env, use env variable instead predefined

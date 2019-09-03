@@ -1,4 +1,9 @@
-const { create: createBook, update: updateBook, read: readBook } = require('../../services/books');
+const {
+  create: createBook,
+  update: updateBook,
+  read: readBook,
+  readById: readBookById,
+} = require('../../services/books');
 
 describe('create book', () => {
   test('should return error if run without params', async () => {
@@ -129,6 +134,13 @@ describe('read books', () => {
       limit: 20,
       offset: 5,
     });
+    expect(resuit).toBeDefined();
+  });
+});
+
+describe('read book by id', () => {
+  test('should return result if id provided and exist in SQL', async () => {
+    const resuit = await readBookById(99);
     expect(resuit).toBeDefined();
   });
 });
