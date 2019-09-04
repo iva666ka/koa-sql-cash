@@ -1,7 +1,7 @@
+const createError = require('http-errors');
 const { pool: sqlConnectionPool } = require('../../storages/mysql.js');
 const { elasticClient } = require('../../storages/elastic.js');
 const { redisClient } = require('../../storages/redis.js');
-const createError = require('http-errors');
 
 const {
   elasticType,
@@ -44,7 +44,7 @@ async function readById(id) {
   if (redisResult !== null) return redisResult;
 
   const [sqlResult] = await sqlConnectionPool.query('SELECT * FROM books WHERE id=?', validatedId);
-  if (sqlResult === undefined) throw createError(400, `id ${validatedId} does not found`);
+  if (sqlResult === undefined) throw createError(404, `id ${validatedId} does not found`);
 
   redisClient.hmset(`book:${validatedId}`, sqlResult)
     .then() // do nothing when promise resolves. We have already sent the result to the client
@@ -136,7 +136,7 @@ async function update(id, booksData) {
     affectedRows,
   } = await sqlConnectionPool.query('UPDATE books set ? WHERE id = ?', [validatedBook, validatedId]);
 
-  if (affectedRows === 0) throw createError(400, `id ${validatedId} does not found`);
+  if (affectedRows === 0) throw createError(404, `id ${validatedId} does not found`);
 
   const [updatedBook] = await sqlConnectionPool.query('SELECT * FROM books WHERE id=?', validatedId);
 
@@ -160,7 +160,7 @@ async function del(id) {
   const validatedId = await idSchema.validate(id);
 
   const { affectedRows } = await sqlConnectionPool.query('DELETE FROM books WHERE id = ?', [validatedId]);
-  if (affectedRows === 0) throw createError(400, `id ${validatedId} does not found`);
+  if (affectedRows === 0) throw createError(404, `id ${validatedId} does not found`);
 
   const promiseArray = [];
   promiseArray.push(
