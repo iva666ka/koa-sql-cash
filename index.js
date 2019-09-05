@@ -13,7 +13,7 @@ app.use(async (ctx, next) => {
       err.statusCode = 400;
     }
     err.statusCode = err.status || err.statusCode || 500;
-    throw err; // rethrow and handle it with default error handler
+    ctx.throw(err.statusCode, err.message); // rethrow and handle it with default error handler
   }
 });
 
