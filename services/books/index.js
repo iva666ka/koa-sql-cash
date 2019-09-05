@@ -76,7 +76,7 @@ async function read(searchOptions = {}) {
       case 'image':
         queryDSL.sort = [
           {
-            [`${sortBy}.raw`]: sort || 'ASC', // not analyzed title, author, description and image
+            [`${sortBy}.keyword`]: sort || 'ASC', // not analyzed title, author, description and image
           },
         ];
         break;
