@@ -28,13 +28,12 @@ describe('books routes', () => {
   test('get /books/:id with exist id should return book with this id', async () => {
     const result = await request(server).get('/books/99');
     expect(result.statusCode).toBe(200);
-    expect(result.body.results.length).toBe(1);
-    expect(result.body.results[0].id).toBe(99);
+    expect(result.body.id).toBe('99');
   });
   test('get /books/:id with not existing id should return empty array', async () => {
     const result = await request(server).get('/books/99999999');
-    expect(result.statusCode).toBe(200);
-    expect(result.body.results.length).toBe(0);
+    expect(result.statusCode).toBe(404);
+    expect(result.text).toBe('id 99999999 does not found');
   });
 
   test('post /books with req.body title and author should create book', async () => {
@@ -66,12 +65,12 @@ describe('books routes', () => {
         description: 'new description',
         image: 'new url',
       });
-    expect(result.body.error).toBe('id 9999999 does not found');
-    expect(result.statusCode).toBe(500);
+    expect(result.text).toBe('id 9999999 does not found');
+    expect(result.statusCode).toBe(404);
   });
 
   test('delete /books/:id delete book', async () => {
     const result = await request(server).delete('/books/100114');
-    expect(result.statusCode).toBe(500);
+    expect(result.statusCode).toBe(404);
   });
 });
