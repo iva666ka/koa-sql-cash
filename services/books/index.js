@@ -15,6 +15,8 @@ const {
   searchOptionsSchema,
 } = require('./validators');
 
+const { setQueryDSL } = require('./utils/setQueryDSL.js');
+
 async function create(booksData) {
   const validatedBook = await createBookSchema.validate(booksData);
 
@@ -64,46 +66,10 @@ async function read(searchOptions = {}) {
     limit,
     offset,
   } = validatedSearchOptions;
-  const queryDSL = {};
 
   if (searchBy === 'id' && Number.isInteger(parseInt(search, 10))) return readById(search);
 
-  if (sortBy) {
-    switch (sortBy) {
-      case 'title':
-      case 'author':
-      case 'description':
-      case 'image':
-        queryDSL.sort = [
-          {
-            [`${sortBy}.keyword`]: sort || 'ASC', // not analyzed title, author, description and image
-          },
-        ];
-        break;
-      case 'id':
-      case 'date':
-        queryDSL.sort = [
-          {
-            [sortBy]: sort || 'ASC',
-          },
-        ];
-        break;
-      default:
-        queryDSL.sort = [
-          {
-            id: 'DESC',
-          },
-        ];
-    }
-  }
-
-  if (search && searchBy) {
-    queryDSL.query = {
-      match: {
-        [searchBy]: search,
-      },
-    };
-  }
+  const queryDSL = setQueryDSL(search, searchBy, sort, sortBy);
 
   const { body: { hits } } = await elasticClient.search({
     index: elasticIndex,

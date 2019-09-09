@@ -2,6 +2,7 @@ const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
 const {
   create: createBook,
+  readById: readBookById,
   read: readBook,
   update: updateBook,
   del: deleteBook,
@@ -15,7 +16,7 @@ bookRoutes.get('/', async (ctx) => {
 });
 
 bookRoutes.get('/:id', async (ctx) => {
-  const result = await readBook({ searchBy: 'id', search: ctx.params.id });
+  const result = await readBookById(ctx.params.id);
   ctx.body = result;
 });
 
