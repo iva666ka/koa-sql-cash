@@ -6,11 +6,14 @@ const idSchema = Joi.number().integer().positive().required()
 const createBookSchema = Joi.object().keys({
   title: Joi.string().min(1).max(255).trim()
     .required(),
-  date: Joi.date(),
+  date: Joi.date()
+    .default(new Date()),
   author: Joi.string().min(1).max(255).trim()
     .required(),
-  description: Joi.string().max(10000).trim().allow(''),
-  image: Joi.string().max(255).trim().allow(''),
+  description: Joi.string().max(10000).trim().allow('')
+    .default(''),
+  image: Joi.string().max(255).trim().allow('')
+    .default(''),
 }).required()
   .label('booksData');
 
