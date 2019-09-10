@@ -1,9 +1,9 @@
 const redis = require('redis');
 const util = require('util');
-const { redisURL } = require('../config/config.js').config;
+const { redisHost } = require('../config/config.js').config;
 
 const client = redis.createClient(
-  { uri: redisURL },
+  { host: redisHost },
 );
 
 client.on('error', (err) => {
