@@ -1,14 +1,14 @@
 const config = {
   port: 3000,
   sqlConnectionLimit: 10,
-  sqlHost: 'host.docker.internal', // dont forget set environment sqlHost with your real ip/domain
+  sqlHost: 'localhost',
   sqlUser: 'admin',
   sqlPassword: 'admin',
   sqlDatabase: 'library',
-  elasticNode: 'http://host.docker.internal:9200', // set your real ip/domain in environment
+  elasticNode: 'http://localhost:9200',
   elasticIndex: 'books',
   elasticType: '_doc',
-  redisHost: 'host.docker.internal', // set your real ip/domain in environment
+  redisHost: '127.0.0.1', // set your real ip/domain in environment
   // redisURL: 'redis://127.0.0.1:6379',
 };
 

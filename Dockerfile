@@ -15,5 +15,10 @@ RUN npm install
 # Bundle app source
 COPY . .
 
+# host.docker.internal reffered on docker host
+ENV sqlHost host.docker.internal
+ENV elasticNode http://host.docker.internal:9200
+ENV redisHost host.docker.internal
+
 EXPOSE 3000
 CMD [ "node", "index.js" ]
