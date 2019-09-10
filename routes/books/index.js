@@ -25,7 +25,7 @@ bookRoutes.post('/', bodyParser(), async (ctx) => {
   ctx.body = result;
 });
 
-bookRoutes.post('/:id', bodyParser(), async (ctx) => {
+bookRoutes.patch('/:id', bodyParser(), async (ctx) => {
   const result = await updateBook(ctx.params.id, ctx.request.body);
   ctx.body = result;
 });
