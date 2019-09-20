@@ -1,15 +1,10 @@
 const config = {
   port: 3000,
-  sqlConnectionLimit: 10,
-  sqlHost: 'localhost',
-  sqlUser: 'admin',
-  sqlPassword: 'admin',
-  sqlDatabase: 'library',
-  elasticNode: 'http://localhost:9200',
+  sqlURL: 'mysql://admin:admin@localhost:3306/library?connectionLimit=10',
+  elasticNode: 'http://localhost:9200', // example with password https://username:password@localhost:9200
   elasticIndex: 'books',
   elasticType: '_doc',
-  redisHost: '127.0.0.1', // set your real ip/domain in environment
-  // redisURL: 'redis://127.0.0.1:6379',
+  redisURL: 'redis://127.0.0.1:6379/1',
 };
 
 // if there are variable in env, use env variable instead predefined
