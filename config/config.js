@@ -4,6 +4,7 @@ const config = {
   elasticNode: 'http://localhost:9200', // example with password https://username:password@localhost:9200
   elasticIndex: 'books',
   elasticType: '_doc',
+  // scheme [redis:]//[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]
   redisURL: 'redis://127.0.0.1:6379/1',
 };
 

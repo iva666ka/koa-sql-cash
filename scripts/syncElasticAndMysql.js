@@ -5,20 +5,12 @@ const mysql = require('mysql');
 const { elasticClient } = require('../storages/elastic.js');
 
 const {
-  sqlHost,
-  sqlUser,
-  sqlPassword,
-  sqlDatabase,
+  sqlURL,
   elasticIndex,
   elasticType,
 } = require('../config/config.js').config;
 
-const connection = mysql.createConnection({
-  host: sqlHost,
-  user: sqlUser,
-  password: sqlPassword,
-  database: sqlDatabase,
-});
+const connection = mysql.createConnection(sqlURL);
 
 const query = connection.query('SELECT * FROM BOOKS');
 query
