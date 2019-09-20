@@ -16,9 +16,9 @@ RUN npm install
 COPY . .
 
 # host.docker.internal reffered on docker host
-ENV sqlHost host.docker.internal
+ENV sqlURL mysql://admin:admin@host.docker.internal:3306/library?connectionLimit=10
 ENV elasticNode http://host.docker.internal:9200
-ENV redisHost host.docker.internal
+ENV redisURL redis://host.docker.internal:6379/1
 
 EXPOSE 3000
 CMD [ "node", "index.js" ]
